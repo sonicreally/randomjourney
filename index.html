@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Random Moving Keys</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+    }
+    .key {
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        background-image: url('https://cdn.discordapp.com/attachments/551310478492696576/1259984085951189152/msedge_nkZkOvuST0.png?ex=668dab1f&is=668c599f&hm=9861ddb8a51f48de439af46e18909efd4493a837d4ce17fe0e61ac6fd2041a11');
+        background-size: cover;
+        background-repeat: no-repeat;
+        text-align: center;
+        line-height: 50px;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+</style>
+</head>
+<body>
+<div id="key1" class="key"></div>
+<div id="key2" class="key"></div>
+<div id="key3" class="key"></div>
+<div id="key4" class="key"></div>
+
+<audio id="audio" src="https://www.youtube.com/embed/Cvfer8YQNE4?autoplay=1" style="display: none;"></audio>
+
+<script>
+var currentAudio = document.getElementById('audio');
+
+function getRandomPosition() {
+    var windowHeight = window.innerHeight;
+    var windowWidth = window.innerWidth;
+    var randomY = Math.floor(Math.random() * (windowHeight - 50)); // 50 is the height of the keys
+    var randomX = Math.floor(Math.random() * (windowWidth - 50)); // 50 is the width of the keys
+    return [randomY, randomX];
+}
+
+function moveKey(keyId) {
+    var key = document.getElementById(keyId);
+    var position = getRandomPosition();
+    key.style.top = position[0] + 'px';
+    key.style.left = position[1] + 'px';
+}
+
+function closeWebsite() {
+    window.location.href = 'about:blank'; // закрываем текущую страницу
+}
+
+function openNewWebsite(url) {
+    window.open(url, '_blank'); // открываем новую страницу
+    closeWebsite(); // закрываем текущую страницу
+}
+
+document.querySelectorAll('.key').forEach(function(key) {
+    key.addEventListener('click', function() {
+        if (key.id === 'key1') {
+            openNewWebsite('https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley');
+        } else {
+            moveKey(key.id); // перемещаем остальные ключи
+        }
+    });
+});
+
+setInterval(function() {
+    moveKey('key1');
+    moveKey('key2');
+    moveKey('key3');
+    moveKey('key4');
+}, 0400); // каждые 2 секунды перемещаем ключи
+
+</script>
+</body>
+</html>
